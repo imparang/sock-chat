@@ -3,6 +3,13 @@ const express = require('express');
 const app = express();
 const http = require('http');
 const server = http.createServer(app);
+const path = require('path');
+
+// ejs로 함.
+app.set('view engine', 'ejs');
+// 렌더링을 위한 디렉토리 경로 설정
+app.set('views', path.join(__dirname, 'views'));
+
 
 const indexRouter = require('./routes/index');
 const clubsRouter = require('./routes/clubs');
