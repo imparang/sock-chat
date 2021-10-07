@@ -15,10 +15,12 @@ app.use('/public', express.static(__dirname + '/public'));
 
 const indexRouter = require('./routes/index');
 const clubsRouter = require('./routes/clubs');
+const chatRouter = require('./routes/chat');
 
 // main이 아닌 -> indexRouter로 들어가도록 한다.
 app.use('/', indexRouter);
 app.use('/clubs', clubsRouter);
+app.use('/chat', chatRouter);
 
 server.listen(3000, () => {
   console.log('Express Server is now listening on localhost: 3000..');
