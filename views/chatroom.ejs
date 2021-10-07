@@ -15,6 +15,20 @@
   <script src="/socket.io/socket.io.js"></script>
   <script>
     const socket = io();
+
+    const form = document.getElementById('form');
+    const input = document.getElementById('input');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if(input.value){
+        // input안에 값이 있으면 chat message라고 하고 input.value를 보내라
+        socket.emit('chat message', input.value);
+
+        // 보내고 input.value를 지워주기
+        input.value = '';
+      };
+    });
   </script>
 </body>
 </html>
