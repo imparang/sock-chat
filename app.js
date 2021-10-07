@@ -10,6 +10,8 @@ app.set('view engine', 'ejs');
 // 렌더링을 위한 디렉토리 경로 설정
 app.set('views', path.join(__dirname, 'views'));
 
+// public 디렉토리 안에 있는 static 파일을 제공하기 위한 공간이기에 이것을 사용할 라우트를 설정
+app.use('/public', express.static(__dirname + '/public'));
 
 const indexRouter = require('./routes/index');
 const clubsRouter = require('./routes/clubs');
