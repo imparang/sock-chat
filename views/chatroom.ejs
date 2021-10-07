@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat anything</title>
+  <link rel="stylesheet" type="text/css" href="../public/css/chat.css">
+</head>
+<body>
+  <ul id="messages"></ul>
+  <form id="form" action="">
+    <input id="input" autocomplete="off">
+    <button>Send</button>
+  </form>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+
+    const form = document.getElementById('form');
+    const input = document.getElementById('input');
+    const messages = document.getElementById('messages');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if(input.value){
+        // input안에 값이 있으면 chat message라고 하고 input.value를 보내라
+        socket.emit('chat message', input.value);
+
+        // 보내고 input.value를 지워주기
+        input.value = '';
+      };
+    });
+
+    socket.on('chat message', (msg) => {
+      const item = document.createElement('li');
+      item.textContent = msg;
+
+      messages.appendChild(item);
+      // 만약 메시지가 길다면 body의 스크롤 길이까지 내린다. 즉, 리스트의 가장 마지막요소(최신 메시지)가 보임. 
+      window.scrollTo(0, document.body.scrollHeight);
+    });
+  </script>
+</body>
+</html>
